@@ -25,34 +25,34 @@ import {
   PlayerPlaceBlockAfterEvent,
   PlayerSpawnAfterEvent
 } from '@minecraft/server';
-import { WrappedPlayer } from '../entity/player';
+import { KeystonePlayer } from '../entity/player';
 import { Listener } from './event';
 
 abstract class PlayerEvent implements Listener {
   onJoinAfter(event: PlayerJoinAfterEvent): void {}
   onLeaveAfter(event: PlayerLeaveAfterEvent): void {}
 
-  onLeaveBefore(event: PlayerLeaveBeforeEvent, player: WrappedPlayer): void {}
-  onBreakBlockBefore(event: PlayerBreakBlockBeforeEvent, player: WrappedPlayer): void {}
-  onGameModeChangeBefore(event: PlayerGameModeChangeBeforeEvent, player: WrappedPlayer): void {}
-  onPlayerInteractWithBlockBefore(event: PlayerInteractWithBlockBeforeEvent, player: WrappedPlayer): void {}
-  onPlayerInteractWithEntityBefore(event: PlayerInteractWithEntityBeforeEvent, player: WrappedPlayer): void {}
+  onLeaveBefore(event: PlayerLeaveBeforeEvent, player: KeystonePlayer): void {}
+  onBreakBlockBefore(event: PlayerBreakBlockBeforeEvent, player: KeystonePlayer): void {}
+  onGameModeChangeBefore(event: PlayerGameModeChangeBeforeEvent, player: KeystonePlayer): void {}
+  onPlayerInteractWithBlockBefore(event: PlayerInteractWithBlockBeforeEvent, player: KeystonePlayer): void {}
+  onPlayerInteractWithEntityBefore(event: PlayerInteractWithEntityBeforeEvent, player: KeystonePlayer): void {}
 
-  onBlockComponentPlayerPlaceBefore(event: BlockComponentPlayerPlaceBeforeEvent, player?: WrappedPlayer): void {}
-  onBlockComponentPlayerInteract(event: BlockComponentPlayerInteractEvent, player?: WrappedPlayer): void {}
-  onBlockComponentPlayerBreak(event: BlockComponentPlayerBreakEvent, player?: WrappedPlayer): void {}
+  onBlockComponentPlayerPlaceBefore(event: BlockComponentPlayerPlaceBeforeEvent, player?: KeystonePlayer): void {}
+  onBlockComponentPlayerInteract(event: BlockComponentPlayerInteractEvent, player?: KeystonePlayer): void {}
+  onBlockComponentPlayerBreak(event: BlockComponentPlayerBreakEvent, player?: KeystonePlayer): void {}
 
-  onEmoteAfter(event: PlayerEmoteAfterEvent, player: WrappedPlayer): void {}
-  onSpawnAfter(event: PlayerSpawnAfterEvent, player: WrappedPlayer): void {}
-  onBreakBlockAfter(event: PlayerBreakBlockAfterEvent, player: WrappedPlayer): void {}
-  onPlaceBlockAfter(event: PlayerPlaceBlockAfterEvent, player: WrappedPlayer): void {}
-  onButtonInputAfter(event: PlayerButtonInputAfterEvent, player: WrappedPlayer): void {}
-  onGameModeChangeAfter(event: PlayerGameModeChangeAfterEvent, player: WrappedPlayer): void {}
-  onDimensionChangeAfter(event: PlayerDimensionChangeAfterEvent, player: WrappedPlayer): void {}
-  onInputModeChangeAfter(event: PlayerInputModeChangeAfterEvent, player: WrappedPlayer): void {}
-  onInteractWithBlockAfter(event: PlayerInteractWithBlockAfterEvent, player: WrappedPlayer): void {}
-  onInteractWithEntityAfter(event: PlayerInteractWithEntityAfterEvent, player: WrappedPlayer): void {}
-  onInventoryItemChangeAfter(event: PlayerInventoryItemChangeAfterEvent, player: WrappedPlayer): void {}
-  onHotbarSelectedSlotChangeAfter(event: PlayerHotbarSelectedSlotChangeAfterEvent, player: WrappedPlayer): void {}
-  onInputPermissionCategoryChangeAfter(event: PlayerInputPermissionCategoryChangeAfterEvent, player: WrappedPlayer): void {}
+  onEmoteAfter(event: PlayerEmoteAfterEvent, player: KeystonePlayer): void {}
+  onSpawnAfter(event: PlayerSpawnAfterEvent, player: KeystonePlayer): void {}
+  onBreakBlockAfter(event: PlayerBreakBlockAfterEvent, player: KeystonePlayer): void {}
+  onPlaceBlockAfter(event: PlayerPlaceBlockAfterEvent, player: KeystonePlayer): void {}
+  onButtonInputAfter(event: PlayerButtonInputAfterEvent, player: KeystonePlayer): void {}
+  onGameModeChangeAfter(event: PlayerGameModeChangeAfterEvent, player: KeystonePlayer): void {}
+  onDimensionChangeAfter(event: PlayerDimensionChangeAfterEvent, player: KeystonePlayer): void {}
+  onInputModeChangeAfter(event: PlayerInputModeChangeAfterEvent, player: KeystonePlayer): void {}
+  onInteractWithBlockAfter(event: PlayerInteractWithBlockAfterEvent, player: KeystonePlayer): void {}
+  onInteractWithEntityAfter(event: PlayerInteractWithEntityAfterEvent, player: KeystonePlayer): void {}
+  onInventoryItemChangeAfter(event: PlayerInventoryItemChangeAfterEvent, player: KeystonePlayer): void {}
+  onHotbarSelectedSlotChangeAfter(event: PlayerHotbarSelectedSlotChangeAfterEvent, player: KeystonePlayer): void {}
+  onInputPermissionCategoryChangeAfter(event: PlayerInputPermissionCategoryChangeAfterEvent, player: KeystonePlayer): void {}
 }

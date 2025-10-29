@@ -2,14 +2,14 @@
 
 /**
  * 委譲
- * @template T ターゲットオブジェクトの型
- * @template U 委譲先オブジェクトの型
+ * @template T ターゲット
+ * @template U 委譲先
  * @param {T} target
- *   プロキシ化したい元のオブジェクト（優先的にアクセスされる）。
+ *   元のオブジェクト (優先的にアクセスされる)
  * @param {U} delegate
- *   委譲対象となるオブジェクト。プロパティ・メソッドが存在すればそちらに転送される。
+ *   委譲対象となるオブジェクト (プロパティ・メソッドが存在すればそちらに転送される)
  * @returns {T & U}
- *   ターゲットと委譲先のプロパティをすべて統合したように見えるプロキシオブジェクト。
+ *   プロキシオブジェクト
  */
 export function delegate<T extends object, U extends object>(
   target: T,

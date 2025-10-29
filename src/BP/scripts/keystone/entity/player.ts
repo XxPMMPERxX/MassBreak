@@ -2,36 +2,39 @@ import { Player, PlayerLeaveAfterEvent, PlayerSpawnAfterEvent, world } from '@mi
 import { _Vector3 } from '../math/vector3';
 import { delegate } from '../utils/delegate';
 
-export type WrappedPlayer = _Player & Player;
+export type KeystonePlayer = _Player & Player;
 
 export class PlayerRegistry {
   /**
-   * 取得
+   * プレイヤーオブジェクトから取得
    * @param {Player} player
-   * @returns {WrappedPlayer}
+   * @returns {KeystonePlayer}
    */
-  static fromPlayer(player: Player): WrappedPlayer {
+  static fromPlayer(player: Player): KeystonePlayer {
     if (!_Player._players.has(player.id)) {
-      throw new Error(`Player whose id is ${player.id} have not registered yet!`);
+      throw new Error(`${player.id}のプレイヤーがレジストリに登録されていません`);
     };
-    return _Player._players.get(player.id) as WrappedPlayer;
+    return _Player._players.get(player.id) as KeystonePlayer;
   }
 
   /**
-   * 取得
+   * IDから取得
    * @param {string} playerId
-   * @returns {WrappedPlayer}
+   * @returns {KeystonePlayer}
    */
-  static fromId(playerId: string): WrappedPlayer {
+  static fromId(playerId: string): KeystonePlayer {
     if (!_Player._players.has(playerId)) {
-      throw new Error(`Player whose id is ${playerId} have not registered yet!`);
+      throw new Error(`${playerId}のプレイヤーがレジストリに登録されていません`);
     };
-    return _Player._players.get(playerId) as WrappedPlayer;
+    return _Player._players.get(playerId) as KeystonePlayer;
   }
 }
 
+/**
+ * 拡張機能を備えたPlayerオブジェクト
+ */
 class _Player {
-  static _players: Map<string, WrappedPlayer> = new Map();
+  static _players: Map<string, KeystonePlayer> = new Map();
 
   /**
    * 生成
