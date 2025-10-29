@@ -1,0 +1,37 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Keystone",
+    "description": "BehaviorPack script API modules",
+    "uuid": "60367afd-853f-4e21-82dd-fd467fbba9da",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 120]
+  },
+  "modules": [
+    {
+      "description": "script",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "faa4142e-6bbe-4231-adf5-dab017cfbf72",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name":"@minecraft/server",
+      "version": "beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "beta"
+    },
+    {
+      "module_name": "@minecraft/server-net",
+      "version": "beta"
+    }
+  ],
+  "metadata": {
+    "authors": ["VeronicaDiazTaylor", "soradore"]
+  }
+}

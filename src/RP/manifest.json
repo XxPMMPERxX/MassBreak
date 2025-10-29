@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Template RP",
+    "name": "ATemplate RP",
+    "uuid": "69008f92-241c-4ba1-9f10-360d9076ab68",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 0]
+  },
+  "modules": [
+    {
+      "description": "resource",
+      "type": "resources",
+      "uuid": "4732237d-4a1e-437f-b7af-5df79f3d4081",
+      "version": [1, 0, 0]
+    }
+  ]
+}
