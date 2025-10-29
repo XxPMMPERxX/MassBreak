@@ -6,3 +6,4 @@ node_modules/
 .env
 resource_packs/
 src/**/*.js
+dist*

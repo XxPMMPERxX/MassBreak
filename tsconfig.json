@@ -16,14 +16,13 @@
     "noImplicitAny": true,
     "noImplicitReturns": false,
     "noImplicitUseStrict": false,
-    "rootDir": "src/BP/scripts",
-    "baseUrl": "./",
+    "noEmit": true,
     "listFiles": false,
     "noEmitHelpers": true,
     "skipLibCheck": true,
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
   ],
   "exclude": [
     "node_modules",

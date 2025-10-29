@@ -1,24 +1,32 @@
 {
-  "name": "bdsdevtemplate",
+  "name": "yourpluginname",
   "version": "1.0.0",
-  "description": "Minecraft BDS Dev Server",
-  "private": true,
+  "description": "my first plugin",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build:app": "tsc && vite build --config vite.config.app.js",
+    "build:lib": "tsc && vite build --config vite.config.lib.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@minecraft/server": "^2.3.0-beta.1.21.114-stable",
+    "@minecraft/server-net": "^1.0.0-beta.1.21.114-stable",
+    "@minecraft/server-ui": "^2.1.0-beta.1.21.114-stable"
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "eslint": "^9.38.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.2",
-    "vite": "^7.1.7"
-  },
-  "dependencies": {
-    "@minecraft/server": "^2.3.0-beta.1.21.114-stable",
-    "@minecraft/server-net": "^1.0.0-beta.1.21.114-stable",
-    "@minecraft/server-ui": "^2.1.0-beta.1.21.114-stable"
+    "vite": "^7.1.7",
+    "vite-plugin-dts": "^4.5.4"
   }
 }

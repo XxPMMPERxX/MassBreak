@@ -6,8 +6,7 @@ services:
       - "${SCRIPT_DEBUGGER_PORT:-19144}:19144"
       - "${SCRIPT_DEBUGGER_PORT:-19144}:19144/udp"
     volumes:
-      - "./src/BP:/data/behavior_packs/develop"
-      - "./src/RP:/data/resource_packs/develop"
+      - "./dist_behavior_pack:/data/behavior_packs/BP"
       - "./worlds:/data/worlds"
       - "./config:/data/config"
     environment:
@@ -32,6 +31,6 @@ services:
     working_dir: /app
     volumes:
       - ".:/app"
-    entrypoint: sh -c "npm install --force && ./build.sh"
+    entrypoint: sh -c "npm install --force && npm run build:app"
     environment:
       - NODE_ENV=development
