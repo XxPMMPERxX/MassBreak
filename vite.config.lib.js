@@ -11,5 +11,10 @@ export default defineConfig({
       fileName: 'index',
       formats: ['es'],
     },
+    rollupOptions: {
+      external: [
+        'keystone',
+      ],
+    }
   },
 });
