@@ -24,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "^9.38.0",
     "eslint": "^9.38.0",
+    "keystone": "github:XxPMMPERxX/KeystoneCore",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.7",

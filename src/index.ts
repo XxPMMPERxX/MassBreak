@@ -1,11 +1,3 @@
-import { PlayerSpawnAfterEvent, world } from '@minecraft/server';
+import * as keystone from 'keystone';
 
-world.afterEvents.playerSpawn.subscribe((ev: PlayerSpawnAfterEvent) => {
-  const { player, initialSpawn } = ev;
-
-  if (!initialSpawn) {
-    return;
-  }
-
-  player.sendMessage('ようこそ!!');
-});
+console.log(keystone);
