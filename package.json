@@ -4,6 +4,7 @@
   "description": "my first plugin",
   "type": "module",
   "scripts": {
+    "build": "npm run build:app && npm run build:lib",
     "build:app": "tsc && vite build --config vite.config.app.js",
     "build:lib": "tsc && vite build --config vite.config.lib.js"
   },
@@ -22,10 +23,12 @@
     "@minecraft/server-net": "^1.0.0-beta.1.21.130-preview.24",
     "@minecraft/server-ui": "^2.1.0-beta.1.21.130-preview.24",
     "eslint": "^9.38.0",
-    "keystone": "github:XxPMMPERxX/KeystoneCore",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.7",
     "vite-plugin-dts": "^4.5.4"
+  },
+  "dependencies": {
+    "keystone": "github:XxPMMPERxX/KeystoneCore"
   }
 }
