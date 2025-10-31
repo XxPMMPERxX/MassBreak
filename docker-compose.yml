@@ -35,3 +35,13 @@ services:
     entrypoint: sh -c "npm install --force && npm run build:app"
     environment:
       - NODE_ENV=development
+  
+  # To Dev core
+  # dev:
+  #   image: node:20.10-alpine
+  #   working_dir: /workspace/dev
+  #   volumes:
+  #     - "..:/workspace"
+  #   entrypoint: sh -c "cd /workspace/dev && npm install --force && npm run build:app"
+  #   environment:
+  #     - NODE_ENV=development
