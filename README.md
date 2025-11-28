@@ -1,4 +1,4 @@
-# BDS + ビヘイビア + リソースパックの開発テンプレート
+# BDS + ScriptAPI のフレームワーク
 
 ![alt text](image.png)
 
@@ -36,7 +36,3 @@ npm run build:lib
 ## 推奨事項
 - VSCodeで開発する場合 .vscode/extensions.json に記載の拡張機能を入れるとよいです
 
-
-## 今後
-- ビヘイビアパックビルド部分を外部パッケージとして出す
-- Keynoteコア作成後、導入する
