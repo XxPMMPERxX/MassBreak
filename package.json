@@ -29,6 +29,6 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "keystone": "github:XxPMMPERxX/KeystoneCore"
+    "@gollilla/keystone": "^1.0.0"
   }
 }
