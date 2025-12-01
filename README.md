@@ -2,8 +2,8 @@
 ## 概要
 BDS + ScriptAPI のフレームワーク
 
-![alt text](image.png)
-<br />
+![alt text](image.png)  
+<br />  
 
 ## 環境構築
 1. Docker インストール
@@ -35,7 +35,7 @@ docker compose down
 ```bash
 npm run build:lib
 ```
-を行うと dist/ 配下にビルドされます
+を行うと dist/ 配下にビルドされます  
 <br />
 
 ## 推奨事項
