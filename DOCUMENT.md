@@ -5,7 +5,7 @@
 #### 単一ファイルの場合のサンプル
 ```ts
 import { Player } from '@minecraft/server';
-import { EventManager, Priority } from 'keystone';
+import { EventManager, Priority } from 'keystonemc';
 
 // 一回限りのおまじない
 EventManager.initialize();
@@ -34,7 +34,7 @@ Priorityは優先度が高い順に`LOWEST > LOW > NORMAL > HIGH > HIGHEST > MON
 #### ファイル分けした場合の推奨サンプル
 ```ts
 // --------------------- index.ts ---------------------
-import { EventManager } from 'keystone';
+import { EventManager } from 'keystonemc';
 import { registerPlayerSpawnHandlers } from './playerSpawn';
 import { registerButtonPushHandlers } from './buttonPush';
 
@@ -45,7 +45,7 @@ registerPlayerSpawnHandlers();
 registerButtonPushHandlers();
 
 // --------------------- playerSpawn.ts ---------------------
-import { EventManager, Priority } from 'keystone';
+import { EventManager, Priority } from 'keystonemc';
 
 export function registerPlayerSpawnHandlers() {
 
@@ -61,7 +61,7 @@ export function registerPlayerSpawnHandlers() {
 }
 
 // --------------------- buttonPush.ts ---------------------
-import { EventManager, Priority } from 'keystone';
+import { EventManager, Priority } from 'keystonemc';
 
 export function registerButtonPushHandlers() {
 
@@ -76,7 +76,7 @@ export function registerButtonPushHandlers() {
 #### 継続処理サンプル
 ```ts
 import { Player } from '@minecraft/server';
-import { repeating } from 'keystone';
+import { repeating } from 'keystonemc';
 
 const timer10s = repeating({
   every: 1*20, // 間隔
@@ -109,7 +109,7 @@ timer10s.cancel();
 #### 遅延処理サンプル
 ```ts
 import { Player } from '@minecraft/server';
-import { delayed } from 'keystone';
+import { delayed } from 'keystonemc';
 
 // 2秒後の処理
 delayed(
@@ -133,7 +133,7 @@ player.sendMessage('街へいこうよ');
 #### 待機処理サンプル
 ```ts
 import { Player } from '@minecraft/server';
-import { sleep } from 'keystone';
+import { sleep } from 'keystonemc';
 
 (async() => {
   player.sendMessage('街へいこうよ');
@@ -228,7 +228,7 @@ EventManager.registerAfter('playerSpawn', {
 <summary>ロードを意図的に入れた参加時のタイトルアニメーション (sleep使用)</summary>
 
 ```ts
-import { EventManager, Priority, sleep } from 'keystone';
+import { EventManager, Priority, sleep } from 'keystonemc';
 
 // 参加時のタイトルアニメーション
 EventManager.registerAfter('playerSpawn', {
@@ -273,7 +273,7 @@ EventManager.registerAfter('playerSpawn', {
 
 ```ts
 import { Player } from '@minecraft/server';
-import { EventManager, sleep } from 'keystone';
+import { EventManager, sleep } from 'keystonemc';
   
 // ボタンを押したときに何のボタンかをカウントダウン後に送信
 EventManager.registerAfter('buttonPush', {
