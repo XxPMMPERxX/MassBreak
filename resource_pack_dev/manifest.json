@@ -1,0 +1,17 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Custom Resource Pack",
+    "name": "My Resource Pack",
+    "uuid": "12345678-1234-5678-1234-567812345678",
+    "version": [1, 0, 0]
+  },
+  "modules": [
+    {
+      "description": "Resource pack module",
+      "type": "resources",
+      "uuid": "87654321-4321-8765-4321-876543218765",
+      "version": [1, 0, 0]
+    }
+  ]
+}

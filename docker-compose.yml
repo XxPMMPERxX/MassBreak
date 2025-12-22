@@ -7,11 +7,12 @@ services:
       - "${SCRIPT_DEBUGGER_PORT:-19144}:19144/udp"
     volumes:
       - "./dist_behavior_pack:/data/behavior_packs/BP"
+      - "./resource_pack_dev:/data/resource_packs/RP"
       - "./worlds:/data/worlds"
       - "./config:/data/config"
     environment:
       - SERVER_NAME=Keystone
-      - PREVIWE=true
+      - PREVIEW=true
       - EULA=TRUE
       - LEVEL_NAME=DevWorld
       - LEVEL_TYPE=flat
@@ -30,6 +31,7 @@ services:
   dev:
     image: node:20.10-alpine
     working_dir: /app
+    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ".:/app"
     entrypoint: sh -c "npm install --force && npm run build:app"
