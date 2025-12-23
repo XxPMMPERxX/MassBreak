@@ -29,6 +29,6 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "keystonemc": "^1.0.1"
+    "keystonemc": "^2.0.1"
   }
 }
