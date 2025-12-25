@@ -1,8 +1,12 @@
-<center>
-  <img src='keystone_banner.png'><br />
-  ～ ScriptAPI開発体験を刷新するTypeScriptベースのフレームワーク ～ <br /><br />
+<p align="center">
+		<picture>
+			<source srcset="https://raw.githubusercontent.com/XxPMMPERxX/Keystone/main/.github/images/keystone_dark.png" media="(prefers-color-scheme: dark)">
+			<img src="https://raw.githubusercontent.com/XxPMMPERxX/Keystone/main/.github/images/keystone.png" loading="eager" />
+		</picture>
+	<br>
+	<b>～ ScriptAPI開発体験を刷新するTypeScriptベースのフレームワーク ～ </b><br /><br />
   <a href="https://nodei.co/npm/keystonemc/"><img src="https://nodei.co/npm/keystonemc.svg?data=d"></a>
-</center>
+</p>
 
 ## 概要
 Keystoneとは、統合版MinecraftのBDS環境及びビヘイビア―パックのScriptAPIの開発を支援することを目的に作られたプロジェクトです。  
