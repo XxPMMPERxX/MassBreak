@@ -1,8 +1,19 @@
-# Keystone
-## 概要
-BDS + ScriptAPI のフレームワーク
+<center>
+  <img src='keystone_banner.png'><br />
+  ～ ScriptAPI開発体験を刷新するTypeScriptベースのフレームワーク ～ <br /><br />
+  <a href="https://nodei.co/npm/keystonemc/"><img src="https://nodei.co/npm/keystonemc.svg?data=d"></a>
+</center>
 
-![alt text](image.png)  
+## 概要
+Keystoneとは、統合版MinecraftのBDS環境及びビヘイビア―パックのScriptAPIの開発を支援することを目的に作られたプロジェクトです。  
+Mojangが提供するAPIでは難しい処理の実装を簡単に行えるようにしているほか、Vector3をはじめとした様々な拡張クラスを実装しています。  
+JavaScriptの暗黙の型変換によるエラーで悩んでしまう時間を最小限になるように、TypeScriptを採用しています。  
+  
+- 🗃️ イベントの優先順位を指定できるので一つのサブスクライブに縛られる必要はありません！
+- ⏰ 豊富なタイマーで幅広い処理をスタイリッシュに！
+- 🛠️ スリープ処理や条件待機処理で上から下への処理記法を実現し、if地獄から脱却！
+- 🔢 拡張されたAABBクラスやVector3クラスで複雑な計算を簡単に！
+
 <br />  
 
 ## 環境構築
@@ -42,12 +53,12 @@ npm run build:lib
 - VSCodeで開発する場合 .vscode/extensions.json に記載の拡張機能を入れるとよいです
 <br />
 
-## ドキュメント
+### ドキュメント
 - [イベント](./DOCUMENT.md#イベント)
-  - [単一ファイルの場合のサンプル](./DOCUMENT.md#サンプル)
+  - [単一ファイルの場合のサンプル](./DOCUMENT.md#単一ファイルの場合のサンプル)
   - [ファイル分けした場合の推奨サンプル](./DOCUMENT.md#ファイル分けした場合の推奨サンプル)
 - [タイマー](./DOCUMENT.md#タイマー)
   - [継続処理サンプル](./DOCUMENT.md#継続処理サンプル)
   - [遅延処理サンプル](./DOCUMENT.md#遅延処理サンプル)
-  - [待機処理サンプル](./DOCUMENT.md#待機処理サンプル)
-- [サンプルコード](./DOCUMENT.md#サンプルコード)
+  - [条件待機処理サンプル](./DOCUMENT.md#条件待機処理サンプル)
+  - [スリープ処理サンプル](./DOCUMENT.md#スリープ処理サンプル)

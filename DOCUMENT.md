@@ -2,13 +2,9 @@
 
 ## イベント
 
-#### 単一ファイルの場合のサンプル
+### 単一ファイルの場合のサンプル
 ```ts
-import { Player } from '@minecraft/server';
 import { EventManager, Priority } from 'keystonemc';
-
-// 一回限りのおまじない
-EventManager.initialize();
 
 // 例:プレイヤーがスポーンした時
 EventManager.registerAfter('playerSpawn', {
@@ -31,84 +27,80 @@ EventManager.registerAfter('playerSpawn', {
 Priorityは優先度が高い順に`LOWEST > LOW > NORMAL > HIGH > HIGHEST > MONITOR`があります。`MONITOR`が一番最後に処理されます。 引数未指定のデフォルトは`NORMAL`です。
 <br />
   
-#### ファイル分けした場合の推奨サンプル
+### ファイル分けした場合の推奨サンプル
 ```ts
 // --------------------- index.ts ---------------------
-import { EventManager } from 'keystonemc';
-import { registerPlayerSpawnHandlers } from './playerSpawn';
-import { registerButtonPushHandlers } from './buttonPush';
-
-
-EventManager.initialize();
-
-registerPlayerSpawnHandlers();
-registerButtonPushHandlers();
+import './playerSpawn';
+import './buttonPush';
 
 // --------------------- playerSpawn.ts ---------------------
 import { EventManager, Priority } from 'keystonemc';
 
-export function registerPlayerSpawnHandlers() {
+EventManager.registerAfter('playerSpawn', {
+  handler(event) {},
+  priority: Priority.LOWEST
+});
 
-  EventManager.registerAfter('playerSpawn', {
-    handler(event) {},
-    priority: Priority.LOWEST
-  });
-
-  EventManager.registerAfter('playerSpawn', {
-    handler(event) {},
-    priority: Priority.MONITOR
-  });
-}
+EventManager.registerAfter('playerSpawn', {
+  handler(event) {},
+  priority: Priority.MONITOR
+});
 
 // --------------------- buttonPush.ts ---------------------
-import { EventManager, Priority } from 'keystonemc';
+import { EventManager } from 'keystonemc';
 
-export function registerButtonPushHandlers() {
+EventManager.registerAfter('buttonPush', {
+  handler(event) {}
+});
 
-  EventManager.registerAfter('buttonPush', {
-    handler(event) {}
-  });
-}
 ```
 <br />
 
 ## タイマー
-#### 継続処理サンプル
+### 継続処理サンプル
 ```ts
-import { Player } from '@minecraft/server';
 import { repeating } from 'keystonemc';
 
-const timer10s = repeating({
+const timer20s = repeating({
   every: 1*20, // 間隔
-  endless: false, // 無限に続けるかどうか
-  max: 10*20, // 最大ティック
-  silenceWhenStopped: false, // timer.stop()で止めたときに処理をさせないか
-  run(tick) { // 毎Nティック処理
-    player.sendMessage(`${Math.floor(tick/20)}`); // 現在の秒数をメッセージで送信
+  max: 20*20, // 最大ティック
+  runWhileStopped: true, // 停止してても run() を呼び出すか
+  run(elapsedTicks: number) { // 毎Nティック処理
+    // 退室した可能性 → 強制キャンセル
+    if (!player || !player.isValid) {
+      return timer20s.cancel(true);
+    }
+
+    // 飛行 → キャンセル
+    if (player.isFlying) {
+      return timer20s.cancel();
+    }
+    
+    // スニークしてる間はタイマーストップ
+    if (player.isSneaking && !timer20s.isStopped()) {
+      timer20s.stop();
+    }
+
+    // スニークしてないときはタイマー再開
+    if (!player.isSneaking && timer20s.isStopped()) {
+      timer20s.resume();
+    }
+
+    // 現在の秒数をアクションバーに送信
+    player.onScreenDisplay?.setActionBar(`${Math.floor(elapsedTicks/20)}`);
   },
   cancel() { // タイマーがキャンセルされたときの処理
-    player.sendMessage('タイマーが終了しました！');
+    player.sendMessage('飛んだのでタイマーが終了しました！');
   },
   final() { // 最大ティックまで到達したときの処理
     player.sendMessage('最大に達しました');
   }
 });
-
-// タイマーの一時停止
-// silenceWhenStoppedがfalseの場合、run()が処理され続ける。
-timer10s.stop();
-
-// タイマーの再開
-timer10s.resume();
-
-// タイマーの終了
-timer10s.cancel();
 ```
 <br />
 
-#### 遅延処理サンプル
+### 遅延処理サンプル
 ```ts
-import { Player } from '@minecraft/server';
 import { delayed } from 'keystonemc';
 
 // 2秒後の処理
@@ -116,9 +108,6 @@ delayed(
   2*20, // 遅延するティック
   () => { // 遅延処理
     player.sendMessage('2008年11月20日 発売！');
-  },
-  () => {
-    // タイマーがキャンセルされたときの処理
   }
 );
 
@@ -130,9 +119,85 @@ player.sendMessage('街へいこうよ');
 ```
 <br />
 
-#### 待機処理サンプル
+### 条件待機処理サンプル
 ```ts
-import { Player } from '@minecraft/server';
+import { until } from 'keystonemc';
+
+until({
+  when: () => player.isSneaking,
+  run: () => player.sendMessage('10秒以内にスニークをしました'),
+  onTimeout: () => player.sendMessage('10秒以内にスニークをしてくれませんでした'),
+  timeout: 10*20
+});
+```
+`until`を用いることで、任意の動作や状態が完了するまで待機してその後処理をすることができるようになります。  
+非同期で用いる場合は`until`ではなく`waitUntil`を使ってください。
+
+<br />
+
+<details>
+
+<summary>フレンド申請の処理 (until使用)</summary>
+
+```ts
+import { EventManager, until } from 'keystonemc';
+
+EventManager.registerBefore('chatSend', {
+  handler(event) {
+    if (event.message !== '#friend accept') return;
+    event.cancel = true;
+    
+    const player = event.sender;
+    player.sendMessage('「Bob」のフレンド申請を承諾しました。');
+    player.sendMessage('キャンセルする場合は、5秒以内にスニークをしてください。');
+
+    // 待機
+    until({
+      when: () => player.isSneaking,
+      run: () => player.sendMessage('フレンド申請の承諾を取り消しました。'),
+      onTimeout: () => player.sendMessage('フレンド申請の承諾が確定しました。'),
+      timeout: 5*20
+    });
+  },
+});
+```
+
+</details>  
+
+<details>
+
+<summary>参加してから動き出すのを待機 (waitUntil使用)</summary>
+
+```ts
+import { EventManager, waitUntil } from 'keystonemc';
+
+EventManager.registerAfter('playerSpawn', {
+  async handler(event) {
+    if (!event.initialSpawn) return;
+    const player = event.player;
+
+    // ワールドにスポーンした瞬間のRotationを保管
+    const rotation = player.getRotation();
+
+    // 動き出すまで待機
+    // 高確率でクライアントの読み込みが終わった瞬間に一瞬首が動く
+    await waitUntil(() => (
+      Math.abs(rotation.x - player.getRotation().x) > 1 ||
+      Math.abs(rotation.y - player.getRotation().y) > 1)
+    );
+
+    // メッセージ送信
+    player.sendMessage('Welcome!');
+  },
+});
+```
+
+</details>  
+
+<br />
+
+### スリープ処理サンプル
+```ts
 import { sleep } from 'keystonemc';
 
 (async() => {
@@ -147,82 +212,14 @@ import { sleep } from 'keystonemc';
   player.sendMessage('2008年11月20日 発売！');
 })();
 ```
-非同期を用いることで、上から下へ流れる処理を実装できます。  
+`sleep`を用いることで、上から下へ流れる処理を実装できます。  
 これをイベントで応用する場合は、以下のようにlistenerの処理部分を`handler()`ではなく `async handler()`にします。
-```ts
-// ボタンを押した後、アクションバーでカウントダウンを行い、ボタンのタイプをメッセージで伝える処理
-EventManager.registerAfter('buttonPush', {
-  async handler(event) {
-    const player = event.source;
-    if (!(player instanceof Player)) return;
-    
-    const screen = player.onScreenDisplay;
-    
-    // forとsleepを駆使して継続処理を再現
-    for (let i = 3; i > 0; i--) {
-      if (screen.isValid) {
-        screen.setActionBar(`${i}秒後にボタンのタイプを送信します`);
-      }
-      await sleep(1*20);
-    }
 
-    player.sendMessage(`${event.block.typeId}`);
-  }
-});
-```
-asyncで処理を行う場合、メインスレッドの処理を無視する形になるため、`playerSpawn`などのクライアント側の読み込みが関わってくる処理では、冒頭にある程度の遅延を持たせないと、処理が省略されるケースがあります。
-```ts
-EventManager.registerAfter('playerSpawn', {
-  async handler(event) {
-    if (!event.initialSpawn) return;
+非同期で処理を行う場合、メインスレッドの処理を無視する形になるため、`playerSpawn`などのクライアント側の読み込みが関わってくる処理では、冒頭にある程度の遅延を持たせないと、処理が省略されるケースがあります。
 
-    const player = event.player;
-    player.sendMessage('5秒後にランダムな数字を送信します...');
-
-    // プレイヤー側の読み込みが終わる前にここまで実行が進んでしまう。
-    // sleepに差し掛かるか、進行している状態になりうる。
-    await sleep(5*20);
-
-    player.sendMessage(`${Math.random()}`);
-  }
-});
-```
-```ts
-EventManager.registerAfter('playerSpawn', {
-  async handler(event) {
-
-    // 処理の初めにある程度の遅延を入れる
-    await sleep(10*20);
-
-    if (!event.initialSpawn) return;
-
-    const player = event.player;
-    player.sendMessage('5秒後にランダムな数字を送信します...');
-
-    await sleep(5*20);
-
-    player.sendMessage(`${Math.random()}`);
-  }
-});
-```
 基本的にクライアント側の読み込みが関わってくる処理は全て同期的に行うことをおすすめします。  
-例えば上のプログラムはTimerを用いて書き換えられます。
-```ts
-EventManager.registerAfter('playerSpawn', {
-  handler(event) {
-    if (!event.initialSpawn) return;
-
-    const player = event.player;
-    player.sendMessage('5秒後にランダムな数字を送信します...');
-
-    delayed(5*20, () => player.sendMessage(`${Math.random()}`));
-  },
-  priority: Priority.LOWEST
-});
-```
 <br />
 
-## サンプルコード
 <details>
 
 <summary>ロードを意図的に入れた参加時のタイトルアニメーション (sleep使用)</summary>
@@ -230,12 +227,11 @@ EventManager.registerAfter('playerSpawn', {
 ```ts
 import { EventManager, Priority, sleep } from 'keystonemc';
 
-EventManager.initialize();
 // 参加時のタイトルアニメーション
 EventManager.registerAfter('playerSpawn', {
   async handler(event) {
     if (!event.initialSpawn) return;
-    
+
     const player = event.player;
 
     // ここから 「Now loading...」を表示させる処理
@@ -276,16 +272,15 @@ EventManager.registerAfter('playerSpawn', {
 import { Player } from '@minecraft/server';
 import { EventManager, sleep } from 'keystonemc';
 
-EventManager.initialize();
 // ボタンを押したときに何のボタンかをカウントダウン後に送信
 EventManager.registerAfter('buttonPush', {
   async handler(event) {
     const button = event.block;
     const player = event.source;
     if (!(player instanceof Player)) return;
-    
+
     const screen = player.onScreenDisplay;
-    
+
     const wait = 3;
     for (let i = wait; i > 0; i--) {
       if (screen.isValid) {
