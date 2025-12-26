@@ -20,12 +20,17 @@
     "listFiles": false,
     "noEmitHelpers": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": [
-    "src/**/*",
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",
+    "tests"
   ],
   "compileOnSave": false
 }

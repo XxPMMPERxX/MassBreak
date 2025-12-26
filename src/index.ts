@@ -1,3 +1,2 @@
-import * as keystone from 'keystonemc';
-
-console.log(keystone);
+// 一括破壊機能をインポート
+import './massBreak';
