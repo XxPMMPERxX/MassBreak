@@ -21,6 +21,7 @@ vi.mock('keystonemc', () => {
       // テストでは即座に実行
       callback();
     }),
+    debug: vi.fn(),
   };
 });
 
